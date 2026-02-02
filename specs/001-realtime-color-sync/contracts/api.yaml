@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Shelly Color Sync API
+  description: Backend API for the real-time webcam color to Shelly bulb demo
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /api/color:
+    post:
+      summary: Send color to Shelly bulb
+      description: Receives RGB color from frontend and forwards to configured Shelly bulb
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColorRequest'
+      responses:
+        '200':
+          description: Color command processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ColorResponse'
+        '400':
+          description: Invalid color values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/status:
+    get:
+      summary: Get system status
+      description: Returns current connection status for bulb
+      responses:
+        '200':
+          description: Current system status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+
+  /api/settings:
+    post:
+      summary: Configure Shelly bulb connection
+      description: Set the IP address of the Shelly bulb to control
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingsRequest'
+      responses:
+        '200':
+          description: Settings updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+        '400':
+          description: Invalid settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      summary: Get current settings
+      description: Returns current bulb configuration
+      responses:
+        '200':
+          description: Current settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+
+components:
+  schemas:
+    ColorRequest:
+      type: object
+      required:
+        - red
+        - green
+        - blue
+      properties:
+        red:
+          type: integer
+          minimum: 0
+          maximum: 255
+          example: 255
+        green:
+          type: integer
+          minimum: 0
+          maximum: 255
+          example: 128
+        blue:
+          type: integer
+          minimum: 0
+          maximum: 255
+          example: 0
+
+    ColorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the color was successfully sent to the bulb
+        bulb_reachable:
+          type: boolean
+          description: Whether the bulb responded
+        error:
+          type: string
+          description: Error message if bulb unreachable
+
+    StatusResponse:
+      type: object
+      properties:
+        bulb_configured:
+          type: boolean
+          description: Whether a bulb IP has been configured
+        bulb_reachable:
+          type: boolean
+          description: Whether the bulb is currently reachable
+        bulb_ip:
+          type: string
+          description: Configured bulb IP address
+          example: "192.168.1.100"
+
+    SettingsRequest:
+      type: object
+      required:
+        - bulb_ip
+      properties:
+        bulb_ip:
+          type: string
+          description: IP address or hostname of Shelly bulb
+          example: "192.168.1.100"
+
+    SettingsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        bulb_ip:
+          type: string
+        bulb_reachable:
+          type: boolean
+        device_type:
+          type: string
+          description: Shelly device type from discovery
+        error:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message

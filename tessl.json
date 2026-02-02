@@ -1,0 +1,18 @@
+{
+  "name": "my-project",
+  "mode": "vendored",
+  "dependencies": {
+    "tessl-labs/spec-kit": {
+      "version": "0.6.4"
+    },
+    "shelly-cloud/shelly-gen1-api": {
+      "version": "1.0.0"
+    },
+    "tessl/npm-angular": {
+      "version": "20.2.0"
+    },
+    "tessl/npm-tailwindcss": {
+      "version": "4.1.1"
+    }
+  }
+}

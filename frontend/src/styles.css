@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* Demo-specific styles for JFokus 2026 */
+/* Constitution III: Visual Clarity - Large, high-contrast elements */
+
+:root {
+  --color-swatch-size: 300px;
+  --font-size-large: 24px;
+  --font-size-xl: 32px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #111827; /* gray-900 */
+  color: #f9fafb; /* gray-50 */
+}
+
+/* Ensure high contrast for projector visibility */
+.text-status {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+}
+
+/* Color swatch minimum size per spec */
+.color-swatch {
+  min-width: var(--color-swatch-size);
+  min-height: var(--color-swatch-size);
+}
