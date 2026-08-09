@@ -1,7 +1,0 @@
-{
-  "name": "tessl/npm-angular",
-  "version": "20.2.0",
-  "docs": "docs/index.md",
-  "describes": "pkg:npm/@angular/core@20.2.4",
-  "summary": "Angular is a comprehensive web application framework that provides a complete development platform for building scalable, maintainable web applications with component-based architecture, dependency injection, reactive forms, routing, HTTP client, and extensive tooling."
-}
